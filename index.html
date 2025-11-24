@@ -1,0 +1,222 @@
+index.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI콩콩콩 - 연말에도 안 쉬는 직장인 AI 스킬업</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #39ff14;
+            --neon-pink: #ff00ff;
+            --neon-blue: #00f0ff;
+            --dark-bg: #0f0f1e;
+            --light-text: #ffffff;
+            --gray-text: #cccccc;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { 
+            font-family: 'Noto Sans KR', 'Roboto', sans-serif; 
+            background:#0f0f1e; 
+            color:#fff; 
+            line-height:1.7; 
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+        header { 
+            background:linear-gradient(135deg,#1a1a2e,#16213e); 
+            padding:1.2rem 0; 
+            position:fixed; 
+            width:100%; 
+            top:0; 
+            z-index:1000; 
+            box-shadow:0 4px 30px rgba(57,255,20,0.3); 
+        }
+        nav { 
+            max-width:1200px; 
+            margin:0 auto; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding:0 2rem; 
+        }
+        .logo { 
+            font-size:2.4rem; 
+            font-weight:900; 
+            background:linear-gradient(90deg,var(--neon-green),var(--neon-pink)); 
+            -webkit-background-clip:text; 
+            -webkit-text-fill-color:transparent; 
+        }
+        .nav-links a { color:#fff; text-decoration:none; margin-left:2.5rem; font-weight:500; position:relative; }
+        .nav-links a:hover { color:var(--neon-green); }
+        .nav-links a::after { content:''; position:absolute; width:0; height:3px; bottom:-8px; left:0; background:var(--neon-green); transition:0.3s; }
+        .nav-links a:hover::after { width:100%; }
+
+        main { margin-top:100px; flex:1; display:flex; flex-direction:column; align-items:center; }
+        .container { width:100%; max-width:1200px; padding:0 20px; }
+
+        .hero {
+            width:100%; max-width:1400px;
+            text-align:center;
+            padding:180px 40px;
+            background: url('배경화면.jpg') center/cover no-repeat;
+            border-radius:30px;
+            position:relative;
+            margin:40px 20px;
+        }
+        .hero::before {
+            content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+            background:rgba(15,15,30,0.78); border-radius:30px;
+        }
+        .hero-content { position:relative; z-index:2; }
+        .hero h1 { font-size:5.5rem; margin-bottom:1rem; background:linear-gradient(90deg,var(--neon-green),var(--neon-blue),var(--neon-pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero .lead { font-size:2.2rem; color:var(--neon-green); margin:30px 0; }
+        .hero .funny { font-size:1.6rem; color:var(--neon-pink); font-weight:700; }
+
+        .section-title { font-size:3rem; margin-bottom:4rem; background:linear-gradient(90deg,var(--neon-green),var(--neon-pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .toggle-btn { 
+            width:100%; max-width:900px; margin:0 auto 15px auto;
+            padding:28px; background:linear-gradient(90deg,#1a1a2e,#16213e);
+            border:2px solid var(--neon-green); border-radius:15px;
+            color:#fff; font-size:1.5rem; font-weight:700; text-align:left;
+            cursor:pointer; position:relative; transition:0.4s;
+        }
+        .toggle-btn::after { content:'Down Arrow'; position:absolute; right:30px; top:50%; transform:translateY(-50%); font-size:2rem; color:var(--neon-green); }
+        .toggle-btn.active::after { transform:translateY(-50%) rotate(180deg); }
+        .toggle-btn:hover { box-shadow:0 0 40px rgba(57,255,20,0.6); transform:translateY(-5px); }
+
+        .toggle-content { 
+            max-height:0; overflow:hidden; transition:max-height 0.6s ease;
+            background:rgba(0,0,0,0.5); padding:0 30px;
+            border:2px solid var(--neon-green); border-top:none; border-radius:0 0 15px 15px;
+            max-width:900px; margin:0 auto;
+        }
+        .toggle-content.active { max-height:800px; padding:40px 30px; }
+
+        .reviews { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:40px; max-width:1200px; margin:60px auto 0 auto; }
+        .review-card { background:rgba(255,255,255,0.05); padding:45px; border-radius:20px; border:1px solid rgba(57,255,20,0.4); transition:0.4s; }
+        .review-card:hover { transform:translateY(-15px); box-shadow:0 20px 50px rgba(57,255,20,0.3); }
+
+        .cta-section { width:100%; max-width:1200px; text-align:center; background:linear-gradient(135deg,#16213e,#1a1a2e); border-radius:30px; padding:120px 40px; margin:100px 20px; }
+        .cta-btn { display:inline-block; padding:28px 90px; font-size:2.4rem; font-weight:900; background:var(--neon-green); color:#000; text-decoration:none; border-radius:50px; box-shadow:0 0 50px rgba(57,255,20,0.9); transition:0.4s; }
+        .cta-btn:hover { transform:scale(1.15); background:var(--neon-pink); color:#fff; box-shadow:0 0 70px rgba(255,0,255,0.9); }
+
+        footer { background:#0a0a15; padding:70px 20px 40px; text-align:center; border-top:1px solid rgba(57,255,20,0.2); color:var(--gray-text); width:100%; }
+
+        @media (max-width:768px) {
+            .nav-links { display:none; }
+            .hero h1 { font-size:3.5rem; }
+            .hero .lead { font-size:1.6rem; }
+            .hero { padding:120px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI콩콩콩</div>
+            <div class="nav-links">
+                <a href="#features">커리큘럼</a>
+                <a href="#reviews">수강생 후기</a>
+                <a href="https://example.com/qna">문의하기</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>AI콩콩콩</h1>
+                <p class="lead">연말 송년회는 나중에, 연봉은 지금 올리자</p>
+                <p style="font-size:2.4rem; color:#39ff14;">
+                    크리스마스도 연말도 연초도<br>
+                    <span style="color:#ff00ff;">“야근보다 무서운 AI 스킬업”</span>
+                </p>
+                <p class="funny">동료는 술마시는데 나는 GPT 프롬프트 짜는 중</p>
+            </div>
+        </section>
+
+        <div class="container">
+
+            <section class="features" id="features">
+                <h2 class="section-title">왜 직장인들이 미쳐 날뛰는가</h2>
+
+                <button class="toggle-btn">크리스마스 25일에도 강의 업로드됩니다 (진짜임)</button>
+                <div class="toggle-content">
+                    <p>팀장님은 “메리 크리스마스~ 다음 주까지 보고서” 하시는데, AI콩콩콩은 새벽 3시에 파이썬 강의 업로드합니다. 산타는 선물 주고 가는데 우리는 스킬 줍니다</p>
+                </div>
+
+                <button class="toggle-btn">1:1 AI 코치가 너를 놓지 않습니다</button>
+                <div class="toggle-content">
+                    <p>야근 끝나고 집에 와서 넷플릭스 켜면 AI가 “야, 오늘 노션 자동화 과제 안 했제?” 하고 채팅 보냅니다. 넷플릭스 자동 정지됩니다 (거짓 아님)</p>
+                </div>
+
+                <button class="toggle-btn">연말연초에도 신규 강의 드롭</button>
+                <div class="toggle-content">
+                    <p>12월 31일 23시 59분에 “2026년 트렌드 AI 강의” 업로드합니다. 새해 첫날 떡국 먹으면서 “아… ChatGPT 5 대응법부터 들어야겠네” 하고 울게 됩니다.</p>
+                </div>
+
+                <button class="toggle-btn">너의 링크드인 프로필을 실시간 감시합니다</button>
+                <div class="toggle-content">
+                    <p>너가 “열정 있는 주니어 개발자”라고 썼는데 지난주 과제 3개 미제출이면 AI가 “야, 프로필 좀 고쳐라” 하고 알려줍니다. 거짓말은 AI가 제일 싫어합니다.</p>
+                </div>
+            </section>
+
+            <section id="reviews">
+                <h2 class="section-title">실제 직장인 후기 (진짜 연봉 올랐음)</h2>
+                <div class="reviews">
+                    <div class="review-card">
+                        <p>“송년회 빠지고 집에서 강의 들었는데… 내년 1월에 연봉 2,500만원 올랐습니다. 술값 아낀 게 이득이었네요”</p>
+                        <strong>— 5년차 마케터 김대리</strong>
+                    </div>
+                    <div class="review-card">
+                        <p>“AI가 제 슬랙 상태를 ‘점심 먹는 중’으로 바꿔놓고 강의 들으라고 했어요. 무섭지만 승진했습니다”</p>
+                        <strong>— 7년차 개발자 박사원</strong>
+                    </div>
+                    <div class="review-card">
+                        <p>“크리스마스에 여친이랑 싸웠는데 AI가 위로해주면서 파이썬 가르쳐줘서… 이제는 여친 대신 AI랑 데이트합니다”</p>
+                        <strong>— 3년차 PM 이과장</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>남들은 연말 파티, 너는 연봉 파티</h2>
+                <p style="font-size:2.2rem; color:#ff00ff; margin:40px 0;">
+                    지금 문의하면 2026년 연봉 협상 무적 권리 획득
+                </p>
+                <a href="https://example.com/qna" class="cta-btn">직장인 문의하러 가기</a>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>AI콩콩콩</strong> | 연말에도 안 쉬는 직장인 전용 AI 스킬업</p>
+            <p>문의: workhard@aikong.ai | 카톡: @퇴사방지콩콩</p>
+            <p>© 2025 야근보다 무서운 AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const isActive = content.classList.contains('active');
+
+                document.querySelectorAll('.toggle-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+
+                if (!isActive) {
+                    content.classList.add('active');
+                    btn.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
